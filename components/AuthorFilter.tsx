@@ -47,7 +47,7 @@ export default function AuthorFilter() {
 
   return (
     <div>
-      <h3 className="text-sm text-orange-600 mb-2 font-medium">Authors</h3>
+      <h3 className="text-sm text-orange-600 mb-2 font-medium mt-4">Authors</h3>
 
       <input
         type="text"
