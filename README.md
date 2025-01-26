@@ -11,3 +11,5 @@
    ```
 3. ** Go to the URL **
    `http://localhost:3000/`
+
+## ** Please install the backend first from [here](https://github.com/asmshaon/news-aggregator) **
