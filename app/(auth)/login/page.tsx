@@ -1,16 +1,40 @@
+"use client";
+
 import React from "react";
 import { Mail, Lock } from "lucide-react";
+import { handleLogin } from "@/app/actions/auth/login-action";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function LoginPage() {
+  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const result = await handleLogin(formData);
+
+    if (!result.success) {
+      setErrorMessage(result.message);
+    } else {
+      setErrorMessage("");
+      router.push("/"); // Redirect after successful login
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-sm">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800">Welcome back</h2>
-          <p className="mt-2 text-gray-600">Please sign in to your account</p>
+          <h2 className="text-3xl font-bold text-gray-800">Welcome & Enjoy!</h2>
+          <p className="mt-2 text-gray-600">
+            Sign in to exprience more feature!
+          </p>
         </div>
 
-        <form className="mt-8 space-y-6">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -19,6 +43,8 @@ export default function page() {
               <div className="mt-1 relative">
                 <input
                   type="email"
+                  id="email"
+                  name="email"
                   className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your email"
                 />
@@ -33,6 +59,8 @@ export default function page() {
               <div className="mt-1 relative">
                 <input
                   type="password"
+                  id="password"
+                  name="password"
                   className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your password"
                 />
@@ -51,14 +79,11 @@ export default function page() {
                 Remember me
               </label>
             </div>
-            <a href="#" className="text-sm text-blue-500 hover:text-blue-600">
-              Forgot password?
-            </a>
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-[#4b9b5c] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Sign In
           </button>
@@ -67,11 +92,18 @@ export default function page() {
         <div className="text-center">
           <p className="text-sm text-gray-600">
             Don&apos;t have an account?{" "}
-            <button className="text-blue-500 hover:text-blue-600 font-medium">
+            <button
+              onClick={() => router.push("/register")}
+              className="text-blue-500 hover:text-blue-600 font-medium"
+            >
               Sign up
             </button>
           </p>
         </div>
+
+        {errorMessage && (
+          <div className="message text-red-500 text-center">{errorMessage}</div>
+        )}
       </div>
     </div>
   );
