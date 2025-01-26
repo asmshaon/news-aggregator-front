@@ -1,0 +1,22 @@
+services:
+  nextjs:
+    image: node:22-alpine
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install -g npm@11 && npm install && npm run dev"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_INTERNAL_API_URL=http://laravel.test
+      - NEXT_PUBLIC_EXTERNAL_API_URL=http://0.0.0.0:80
+    extra_hosts:
+      - "laravel.test:172.17.0.1"
+    networks:
+      - sail
+
+networks:
+  sail:
+    external: true
