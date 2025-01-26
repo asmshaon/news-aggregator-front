@@ -46,7 +46,7 @@ export default function AuthorFilter() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="mb-6">
+    <div>
       <h3 className="text-sm text-orange-600 mb-2 font-medium">Authors</h3>
 
       <input
@@ -66,7 +66,7 @@ export default function AuthorFilter() {
             className="rounded text-blue-500"
           />
           <span className="text-sm text-gray-600">
-            {author.name.slice(0, 22)}
+            {author.name.slice(0, 35)}
           </span>
         </label>
       ))}

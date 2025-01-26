@@ -46,7 +46,7 @@ export default function SourceFilter() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="mb-6">
+    <div className="">
       <h3 className="text-sm text-orange-600 mb-2 font-medium">Sources</h3>
 
       <input

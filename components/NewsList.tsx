@@ -58,14 +58,6 @@ export default function NewsList() {
     fetchArticles();
   }, [fetchArticles]);
 
-  const memoizedArticles = useMemo(
-    () =>
-      articles.map((article) => (
-        <NewsCard key={article.id} article={article} />
-      )),
-    [articles]
-  );
-
   const noArticlesMessage = useMemo(
     () =>
       articles.length === 0 && !loading ? (
@@ -79,9 +71,11 @@ export default function NewsList() {
   );
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 sm:w-4/5 lg:w-9/12">
       {noArticlesMessage}
-      {memoizedArticles}
+      {articles.map((article) => (
+        <NewsCard key={article.id} article={article} />
+      ))}
       {loading && <Loading />}
       {error && <div className="text-center text-red-500 py-4">{error}</div>}
       {nextCursor && !loading && (

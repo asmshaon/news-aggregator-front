@@ -46,7 +46,7 @@ export default function CategoryFilter() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="mb-6">
+    <div className="">
       <h3 className="text-sm text-orange-600 mb-2 font-medium">Categories</h3>
 
       <input
