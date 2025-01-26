@@ -4,8 +4,10 @@ import { Search, UserCircle, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useNewsContext } from "@/providers/NewsProvider";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Header() {
+  const { isAuthenticated, user, logout } = useAuth();
   const { setSearchTerm } = useNewsContext();
   const [searchInput, setSearchInput] = useState("");
 
@@ -39,9 +41,22 @@ export default function Header() {
           </form>
 
           <div className="flex items-center space-x-3">
-            <UserCircle className="h-6 w-6 text-gray-600" />
-            <span className="text-orange-500-700">John Doe</span>
-            <LogOut className="h-5 w-5 text-gray-600 cursor-pointer" />
+            {isAuthenticated ? (
+              <>
+                <UserCircle className="h-6 w-6 text-gray-600" />
+                <span className="text-orange-500-700">{user.name}</span>
+                <LogOut
+                  className="h-5 w-5 text-gray-600 cursor-pointer"
+                  onClick={logout}
+                />
+              </>
+            ) : (
+              <Link href="/login">
+                <button className="text-orange-500 border border-orange-500 hover:bg-orange-500 hover:text-white py-1 p-10 rounded-lg">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

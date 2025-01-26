@@ -23,7 +23,6 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({
     selectedAuthors,
     selectedSources,
     selectedCategories,
-
     setAuthors,
     setSources,
     setCategories,

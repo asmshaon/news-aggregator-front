@@ -65,7 +65,9 @@ export default function AuthorFilter() {
             onChange={() => toggleAuthor(author.id)}
             className="rounded text-blue-500"
           />
-          <span className="text-sm text-gray-600">{author.name}</span>
+          <span className="text-sm text-gray-600">
+            {author.name.slice(0, 22)}
+          </span>
         </label>
       ))}
 

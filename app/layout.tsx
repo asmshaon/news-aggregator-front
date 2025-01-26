@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import { NewsProvider } from "@/providers/NewsProvider";
 import BackToTop from "@/components/ui/BackToTop";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +31,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen bg-gray-100">
-          <NewsProvider>
-            <Header />
-            {children}
-          </NewsProvider>
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen bg-gray-100">
+            <NewsProvider>
+              <Header />
+              {children}
+            </NewsProvider>
+          </div>
+        </AuthProvider>
+
         <BackToTop />
         <footer className="row-start-3 py-3 flex gap-6 flex-wrap items-center justify-center text-sm bg-white">
           Copyright @news-aggerator 2025

@@ -42,3 +42,36 @@ export interface NewsContextType {
   setSelectedSources: (sources: number[]) => void;
   setSelectedCategories: (categories: number[]) => void;
 }
+
+export interface UserPreference {
+  id: number;
+  user_id: number;
+  preferred_sources: string[];
+  preferred_categories: string[];
+  preferred_authors: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+  preference: UserPreference;
+}
+
+export interface AuthResponse {
+  user: User;
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
+export interface AuthContextType {
+  isAuthenticated: boolean;
+  user: AuthResponse | null;
+  login: (token: string, user: AuthResponse) => void;
+  logout: () => void;
+}

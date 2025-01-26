@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { Mail, Lock, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { handleRegister } from "@/app/actions/auth/register-action";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function RegisterPge() {
   const router = useRouter();
+  const { login } = useAuth();
 
   const [errorMessage, setErrorMessage] = useState<string | undefined>("");
 
@@ -19,6 +21,7 @@ export default function RegisterPge() {
     if (!result.success) {
       setErrorMessage(result.message);
     } else {
+      login(result.data.access_token, result.data.user);
       setErrorMessage("");
       router.push("/"); // Redirect after successful register
     }
@@ -78,21 +81,19 @@ export default function RegisterPge() {
                   id="password"
                   name="password"
                   className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Create a password"
+                  placeholder="Enter password"
                 />
                 <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               </div>
             </div>
           </div>
 
-          <div>
-            <button
-              type="submit"
-              className="w-full py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-[#4b9b5c] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Create Account
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-[#4b9b5c] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Create Account
+          </button>
         </form>
 
         <div className="text-center">

@@ -5,10 +5,12 @@ import { Mail, Lock } from "lucide-react";
 import { handleLogin } from "@/app/actions/auth/login-action";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function LoginPage() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
+  const { login } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,10 +19,11 @@ export default function LoginPage() {
     const result = await handleLogin(formData);
 
     if (!result.success) {
-      setErrorMessage(result.message);
+      setErrorMessage(result.message as string);
     } else {
+      login(result.data.access_token, result.data.user);
       setErrorMessage("");
-      router.push("/"); // Redirect after successful login
+      router.push("/");
     }
   };
 
